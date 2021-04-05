@@ -4,7 +4,7 @@ Mint is an Android Library to make your key-value Store beautiful.
 
 ### Usage
 
-first step implement ** Store**
+first step implement **Store**
 
 ```kotlin
 class SharedPreferences(context: Context) : Store
@@ -24,6 +24,7 @@ interface UserValues {
     @Key("pref_gender")
     var gender: String
 
+    //key is optional the default will be pref_your_property name
     var isAdmin: Boolean
 
     var healthInfo: HealthInfo
