@@ -1,10 +1,10 @@
 # Mint
 
-Mint is an Android Library to make your key value store beautiful
+Mint is an Android Library to make your key-value Store beautiful.
 
 ### Usage
 
-first step implement **Store**
+first step implement ** Store**
 
 ```kotlin
 class SharedPreferences(context: Context) : Store
@@ -37,19 +37,19 @@ data class HealthInfo(
 )
 ```
 
-Finally create a Mint object that recive your store and create your values interface
+Finally, create a Mint object that receives your Store and create your values interface.
 
 ```kotlin
 val userValues = Mint(store).create(UserValues::class)
 ```
 
-then if you want to store data just call the property setter
+then if you want to store data, call the property setter
 
 ```kotlin
 userValues.username = "mhssn"
 ```
 
-and if you want to receive from your store just call the property getter
+and if you want to receive from your Store call the property getter
 
 ```kotlin
 val username = userValues.username
