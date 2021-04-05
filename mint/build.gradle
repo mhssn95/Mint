@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -11,7 +12,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -29,6 +30,31 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId "io.mhssn"
+            artifactId "mint"
+            version "1.0.0"
+            artifact("$buildDir/outputs/aar/mint-release.aar")
+        }
+    }
+    repositories {
+        Properties properties = new Properties()
+        properties.load(rootProject.file("github.properties").newDataInputStream())
+        def user = properties.getProperty("username")
+        def token = properties.getProperty("token")
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/mhssn95/Mint")
+            credentials {
+                username = "${user}"
+                password = "${token}"
+            }
+        }
     }
 }
 

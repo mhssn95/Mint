@@ -2,6 +2,24 @@
 
 Mint is an Android Library to make your key-value Store beautiful.
 
+### Installation
+
+download the latest [AAR][1] or get it from maven repository
+
+```groovy
+repositories {
+    google()
+    jcenter()
+    maven {
+        url = "https://maven.pkg.github.com/mhssn95/mint"
+    }
+}
+
+dependencies {
+    implementation 'io.mhssn:mint:1.0.0'
+}
+```
+
 ### Usage
 
 first step implement **Store**
@@ -24,7 +42,7 @@ interface UserValues {
     @Key("pref_gender")
     var gender: String
 
-    //key is optional the default will be pref_your_property name
+    //key is optional the default will be pref_your_property_name
     var isAdmin: Boolean
 
     var healthInfo: HealthInfo
@@ -74,5 +92,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-
-
+[1]: https://github.com/mhssn95/Mint/packages/711301
