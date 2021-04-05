@@ -15,4 +15,14 @@ interface UserValues {
     @Key("pref_gender")
     var gender: String
 
+    var isAdmin: Boolean
+
+    var healthInfo: HealthInfo
+
 }
+
+data class HealthInfo(
+    val bloodType: String,
+    val weight: Float,
+    val height: Float
+)

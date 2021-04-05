@@ -17,6 +17,12 @@ class MainActivity : AppCompatActivity() {
 
         val store = SharedPreferences(this)
 
-        val appValues = Mint(store).create(AppValues::class)
+        val userValues = Mint(store).create(UserValues::class)
+
+        Log.d(TAG, "before ${userValues.username}")
+        userValues.username = "mhssn"
+        val username = userValues.username
+
+        Log.d(TAG, "after $username")
     }
 }
