@@ -2,10 +2,11 @@ package io.mhssn.common
 
 object Utils {
     fun getFieldName(method: String): String {
-        return method.drop(3).replaceRange(
+        val dropCount = if (method.startsWith("is")) 2 else 3
+        return method.drop(dropCount).replaceRange(
             0,
             1,
-            method[3].toLowerCase().toString()
+            method[dropCount].toLowerCase().toString()
         )
     }
 
@@ -14,7 +15,7 @@ object Utils {
     }
 
     fun isGetter(method: String): Boolean {
-        return method.startsWith("get")
+        return method.startsWith("get") || method.startsWith("is")
     }
 
     fun appendFirst(input: String, field: String): String {
@@ -22,7 +23,7 @@ object Utils {
     }
 
     fun getKey(propertyName: String, key: String?): String {
-        return key?:"pref_$propertyName"
+        return key ?: "pref_$propertyName"
     }
 
     private fun upperCaseFirstChar(input: String): String {
