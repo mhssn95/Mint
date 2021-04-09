@@ -69,9 +69,9 @@ class Mint(private val store: Store) {
                 }
                 else -> {
                     invoke(method.name, {
-                        store.setString(method.getKey(), gson.toJson(args.first()))
+                        store.setObject(method.getKey(), args.first())
                     }, {
-                        gson.fromJson(store.getString(method.getKey()), type)
+                        store.getObject(method.getKey(), type, null)
                     })
                 }
             }

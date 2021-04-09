@@ -42,7 +42,7 @@ class SharedPreferences(context: Context) : Store {
         sharedPreferences.edit().putFloat(key, value).apply()
     }
 
-    override fun getFloat(key: String, default: Float): Float? {
+    override fun getFloat(key: String, default: Float): Float {
         return sharedPreferences.getFloat(key, default)
     }
 
