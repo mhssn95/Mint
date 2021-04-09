@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 2
+        versionCode 3
         versionName versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -38,7 +38,7 @@ publishing {
         bar(MavenPublication) {
             groupId "io.mhssn"
             artifactId "mint"
-            version "1.0.1"
+            version "1.0.2"
             artifact("$buildDir/outputs/aar/mint-release.aar")
         }
     }
