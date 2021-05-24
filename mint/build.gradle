@@ -1,72 +1,25 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+    id 'java-library'
+    id 'kotlin'
     id 'maven-publish'
+    id 'signing'
 }
 
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
-
-    defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 3
-        versionName versionName
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
 }
 
-publishing {
-    publications {
-        bar(MavenPublication) {
-            groupId "io.mhssn"
-            artifactId "mint"
-            version "1.0.2"
-            artifact("$buildDir/outputs/aar/mint-release.aar")
-        }
-    }
-    repositories {
-        Properties properties = new Properties()
-        properties.load(rootProject.file("github.properties").newDataInputStream())
-        def user = properties.getProperty("username")
-        def token = properties.getProperty("token")
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/mhssn95/Mint")
-            credentials {
-                username = "${user}"
-                password = "${token}"
-            }
-        }
-    }
+ext {
+    PUBLISH_GROUP_ID = 'io.mhssn'
+    PUBLISH_VERSION = '1.0.2'
+    PUBLISH_ARTIFACT_ID = 'mint'
 }
+apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
 
 dependencies {
-    api project(':annotations')
     implementation project(":common")
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
     testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

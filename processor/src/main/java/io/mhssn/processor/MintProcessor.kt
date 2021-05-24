@@ -2,9 +2,9 @@ package io.mhssn.processor
 
 import com.google.auto.service.AutoService
 import com.squareup.kotlinpoet.*
-import io.mhssn.annotations.Key
-import io.mhssn.annotations.Mint
 import io.mhssn.common.Utils
+import io.mhssn.mint.annotations.Key
+import io.mhssn.mint.annotations.Mint
 import java.io.File
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion

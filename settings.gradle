@@ -1,5 +1,4 @@
 include ':common'
-include ':annotations'
 include ':processor'
 include ':mint'
 include ':sample'

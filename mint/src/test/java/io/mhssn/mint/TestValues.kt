@@ -1,6 +1,7 @@
 package io.mhssn.mint
 
-import io.mhssn.annotations.Mint
+import io.mhssn.mint.annotations.Mint
+
 
 @Mint
 interface TestValues {

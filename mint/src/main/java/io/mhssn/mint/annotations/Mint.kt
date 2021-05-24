@@ -1,4 +1,4 @@
-package io.mhssn.annotations
+package io.mhssn.mint.annotations
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)

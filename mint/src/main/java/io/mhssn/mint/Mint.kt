@@ -1,8 +1,7 @@
 package io.mhssn.mint
 
-import com.google.gson.Gson
-import io.mhssn.annotations.Key
 import io.mhssn.common.Utils
+import io.mhssn.mint.annotations.Key
 import io.mhssn.mint.store.Store
 import java.lang.IllegalArgumentException
 import java.lang.reflect.Method
@@ -10,12 +9,9 @@ import java.lang.reflect.Proxy
 import kotlin.reflect.KClass
 import kotlin.reflect.KClassifier
 import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.full.memberExtensionFunctions
 
 @Suppress("UNCHECKED_CAST")
 class Mint(private val store: Store) {
-
-    private val gson = Gson()
 
     fun <T : Any> create(kClass: KClass<T>): T {
         return Proxy.newProxyInstance(

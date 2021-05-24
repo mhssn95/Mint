@@ -1,7 +1,8 @@
 package io.mhssn.mint.Store
 
-import io.mhssn.annotations.Key
-import io.mhssn.annotations.Mint
+import io.mhssn.mint.annotations.Key
+import io.mhssn.mint.annotations.Mint
+
 
 @Mint
 interface UserValues {
