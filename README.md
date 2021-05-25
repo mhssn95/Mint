@@ -7,16 +7,8 @@ Mint is an Android Library to make your key-value Store beautiful.
 download the latest [AAR][1] or get it from maven repository
 
 ```groovy
-repositories {
-    google()
-    jcenter()
-    maven {
-        url = "https://maven.pkg.github.com/mhssn95/mint"
-    }
-}
-
 dependencies {
-    implementation 'io.mhssn:mint:1.0.0'
+    implementation 'io.mhssn:mint:1.0.3'
 }
 ```
 

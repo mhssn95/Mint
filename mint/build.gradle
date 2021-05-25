@@ -3,6 +3,7 @@ plugins {
     id 'kotlin'
     id 'maven-publish'
     id 'signing'
+    id("org.jetbrains.dokka") version "1.4.32"
 }
 
 java {
