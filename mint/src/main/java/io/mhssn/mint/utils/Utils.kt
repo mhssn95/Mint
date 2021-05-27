@@ -1,4 +1,4 @@
-package io.mhssn.common
+package io.mhssn.mint.utils
 
 object Utils {
     fun getFieldName(method: String): String {

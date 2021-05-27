@@ -4,11 +4,12 @@ Mint is an Android Library to make your key-value Store beautiful.
 
 ### Installation
 
-download the latest [AAR][1] or get it from maven repository
+download the latest [JAR][1] or get it from maven repository
 
 ```groovy
 dependencies {
     implementation 'io.mhssn:mint:1.0.3'
+  	kapt 'io.mhssn:mint-processor:1.0.3'
 }
 ```
 
@@ -65,6 +66,21 @@ and if you want to receive from your Store call the property getter
 ```kotlin
 val username = userValues.username
 ```
+
+
+
+Every values interface will have generated interface that adds more features for your values, such as Delete methods; all you want to do is add Mint at the end of your interface name.
+
+```kotlin
+//your interface
+val userValues = Mint(store).create(UserValues::class)
+
+//generated interface       
+val userValues = Mint(store).create(UserValuesMint::class)
+userValues.deleteUsername()
+```
+
+
 
 ## License
 

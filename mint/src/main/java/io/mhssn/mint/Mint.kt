@@ -1,8 +1,9 @@
 package io.mhssn.mint
 
-import io.mhssn.common.Utils
+import io.mhssn.mint.annotations.Delete
 import io.mhssn.mint.annotations.Key
 import io.mhssn.mint.store.Store
+import io.mhssn.mint.utils.Utils
 import java.lang.IllegalArgumentException
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
@@ -19,57 +20,64 @@ class Mint(private val store: Store) {
             arrayOf(kClass.java)
         ) { _, method, args ->
             val fields = kClass.declaredMemberProperties.map { it.name to it.returnType.classifier }
-            val type = findType(method, fields)
-            when (type) {
-                String::class -> {
-                    invoke(method.name, {
-                        store.setString(method.getKey(), args.first() as String)
-                    }, {
-                        store.getString(method.getKey())
-                    })
+
+            val deleteKey = method.getDeleteKey()
+            if (deleteKey == null) {
+                val type = findType(method, fields)
+                when (type) {
+                    String::class -> {
+                        invoke(method.name, {
+                            store.setString(method.getKey(), args.first() as String)
+                        }, {
+                            store.getString(method.getKey())
+                        })
+                    }
+                    Int::class.javaPrimitiveType -> {
+                        invoke(method.name, {
+                            store.setInt(method.getKey(), args.first() as Int)
+                        }, {
+                            store.getInt(method.getKey())
+                        })
+                    }
+                    Float::class.javaPrimitiveType -> {
+                        invoke(method.name, {
+                            store.setFloat(method.getKey(), args.first() as Float)
+                        }, {
+                            store.getFloat(method.getKey())
+                        })
+                    }
+                    Boolean::class.javaPrimitiveType -> {
+                        invoke(method.name, {
+                            store.setBoolean(method.getKey(), args.first() as Boolean)
+                        }, {
+                            store.getBoolean(method.getKey())
+                        })
+                    }
+                    Long::class.javaPrimitiveType -> {
+                        invoke(method.name, {
+                            store.setLong(method.getKey(), args.first() as Long)
+                        }, {
+                            store.getLong(method.getKey())
+                        })
+                    }
+                    Double::class.javaPrimitiveType -> {
+                        invoke(method.name, {
+                            store.setDouble(method.getKey(), args.first() as Double)
+                        }, {
+                            store.getDouble(method.getKey())
+                        })
+                    }
+                    else -> {
+                        invoke(method.name, {
+                            store.setObject(method.getKey(), args.first())
+                        }, {
+                            store.getObject(method.getKey(), type, null)
+                        })
+                    }
                 }
-                Int::class.javaPrimitiveType -> {
-                    invoke(method.name, {
-                        store.setInt(method.getKey(), args.first() as Int)
-                    }, {
-                        store.getInt(method.getKey())
-                    })
-                }
-                Float::class.javaPrimitiveType -> {
-                    invoke(method.name, {
-                        store.setFloat(method.getKey(), args.first() as Float)
-                    }, {
-                        store.getFloat(method.getKey())
-                    })
-                }
-                Boolean::class.javaPrimitiveType -> {
-                    invoke(method.name, {
-                        store.setBoolean(method.getKey(), args.first() as Boolean)
-                    }, {
-                        store.getBoolean(method.getKey())
-                    })
-                }
-                Long::class.javaPrimitiveType -> {
-                    invoke(method.name, {
-                        store.setLong(method.getKey(), args.first() as Long)
-                    }, {
-                        store.getLong(method.getKey())
-                    })
-                }
-                Double::class.javaPrimitiveType -> {
-                    invoke(method.name, {
-                        store.setDouble(method.getKey(), args.first() as Double)
-                    }, {
-                        store.getDouble(method.getKey())
-                    })
-                }
-                else -> {
-                    invoke(method.name, {
-                        store.setObject(method.getKey(), args.first())
-                    }, {
-                        store.getObject(method.getKey(), type, null)
-                    })
-                }
+            }
+            else {
+                store.delete(deleteKey)
             }
         } as T
     }
@@ -106,5 +114,13 @@ class Mint(private val store: Store) {
                 it as Key
             }?.key
         )
+    }
+
+    private fun Method.getDeleteKey(): String? {
+        return annotations.find {
+            it is Delete
+        }?.let {
+            it as Delete
+        }?.key
     }
 }

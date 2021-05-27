@@ -1,7 +1,10 @@
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'maven-publish'
     id 'kotlin-kapt'
+    id 'signing'
+    id("org.jetbrains.dokka") version "1.4.32"
 }
 
 java {
@@ -9,9 +12,16 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+ext {
+    PUBLISH_GROUP_ID = 'io.mhssn'
+    PUBLISH_VERSION = '1.0.3'
+    PUBLISH_ARTIFACT_ID = 'mint-processor'
+}
+
+apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
+
 dependencies {
     implementation project(":mint")
-    implementation project(":common")
     implementation 'com.squareup:kotlinpoet:0.7.0'
     implementation "com.google.auto.service:auto-service:1.0-rc2"
     kapt "com.google.auto.service:auto-service:1.0-rc2"

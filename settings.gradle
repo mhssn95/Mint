@@ -1,4 +1,3 @@
-include ':common'
 include ':processor'
 include ':mint'
 include ':sample'

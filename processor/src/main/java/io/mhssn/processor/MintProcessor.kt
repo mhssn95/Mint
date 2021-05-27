@@ -2,9 +2,10 @@ package io.mhssn.processor
 
 import com.google.auto.service.AutoService
 import com.squareup.kotlinpoet.*
-import io.mhssn.common.Utils
+import io.mhssn.mint.annotations.Delete
 import io.mhssn.mint.annotations.Key
 import io.mhssn.mint.annotations.Mint
+import io.mhssn.mint.utils.Utils
 import java.io.File
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
@@ -60,7 +61,7 @@ class MintProcessor : AbstractProcessor() {
         val generated = TypeSpec.interfaceBuilder(interfaceName).apply {
             fields.forEach {
                 this.addProperty(getProperty(it))
-                this.addFunction(getFunction(Utils.appendFirst("delete", it.name), it))
+                this.addFunction(getDeleteFunction(Utils.appendFirst("delete", it.name), it))
             }
         }.build()
 
@@ -90,6 +91,16 @@ class MintProcessor : AbstractProcessor() {
             .build()
     }
 
+    private fun getDeleteFunction(name: String, property: Property): FunSpec {
+        return FunSpec.builder(name).apply {
+            property.key?.let { key ->
+                addAnnotation(getDeleteAnnotation(key))
+            }
+        }
+            .addModifiers(KModifier.ABSTRACT)
+            .build()
+    }
+
     private fun Element.getPackageName(): String {
         return processingEnv.elementUtils.getPackageOf(this).toString()
     }
@@ -104,6 +115,13 @@ class MintProcessor : AbstractProcessor() {
     private fun getKeyAnnotation(key: String): AnnotationSpec {
         return AnnotationSpec
             .builder(Key::class)
+            .addMember("key = %S", key)
+            .build()
+    }
+
+    private fun getDeleteAnnotation(key: String): AnnotationSpec {
+        return AnnotationSpec
+            .builder(Delete::class)
             .addMember("key = %S", key)
             .build()
     }

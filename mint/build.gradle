@@ -19,7 +19,6 @@ ext {
 apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
 
 dependencies {
-    implementation project(":common")
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     testImplementation 'junit:junit:4.+'
