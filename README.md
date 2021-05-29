@@ -9,7 +9,7 @@ download the latest [JAR][1] or get it from maven repository
 ```groovy
 dependencies {
     implementation 'io.mhssn:mint:1.0.4'
-  	kapt 'io.mhssn:mint-processor:1.0.4'
+    kapt 'io.mhssn:mint-processor:1.0.4'
 }
 ```
 
