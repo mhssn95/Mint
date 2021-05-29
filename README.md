@@ -8,8 +8,8 @@ download the latest [JAR][1] or get it from maven repository
 
 ```groovy
 dependencies {
-    implementation 'io.mhssn:mint:1.0.3'
-  	kapt 'io.mhssn:mint-processor:1.0.3'
+    implementation 'io.mhssn:mint:1.0.4'
+  	kapt 'io.mhssn:mint-processor:1.0.4'
 }
 ```
 
@@ -21,7 +21,18 @@ first step implement **Store**
 class SharedPreferences(context: Context) : Store
 ```
 
+you should implement a Store interface so Mint can know to store and retrieve your data
+
+Or if you want something's ready just get mint-android
+
+```groovy
+implementation 'io.mhssn:mint-android:1.0.4'
+```
+
+
+
 then create your values interface
+
 ```kotlin
 @Mint
 interface UserValues {
